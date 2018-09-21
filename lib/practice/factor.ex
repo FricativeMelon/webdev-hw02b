@@ -3,11 +3,7 @@ defmodule Practice.Factor do
   def factor(x, n, acc) do
     cond do
       n*n > x ->
-        if length(acc) == 0 do
-          [x]
-        else
-          Enum.reverse(acc)
-        end
+        Enum.reverse([x] ++ acc)
       rem(x, n) == 0 ->
         factor(div(x, n), n, [n] ++ acc)
       true ->

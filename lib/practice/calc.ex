@@ -5,8 +5,8 @@ defmodule Practice.Calc do
   end
 
   def select_op(expr, op, fun) do
-    if expr == :error do
-      :error
+    if expr == :error || length(expr)==1 do
+      expr
     else
       i = Enum.find_index(expr, &(&1==op))
       cond do
@@ -19,7 +19,7 @@ defmodule Practice.Calc do
           {s2, expr}  = List.pop_at(expr, i)
           s1 = parse_float(s1)
           s2 = parse_float(s2)
-          select_op(List.replace_at(expr, i-1, fun.(s1, s2)), op, fun)
+          select_op(List.replace_at(expr, i-1, Float.to_string(fun.(s1, s2))), op, fun)
       end
     end
   end
@@ -32,7 +32,7 @@ defmodule Practice.Calc do
     |> select_op("/", &(&1 / &2))
     |> select_op("+", &(&1 + &2))
     |> select_op("-", &(&1 - &2))
-
+    |> hd
     # Hint:
     # expr
     # |> split
