@@ -17,9 +17,18 @@ defmodule Practice do
   end
 
   def factor(x) do
-    # Maybe delegate this too.
-    [1,2,x]
+    Practice.Factor.factor(x, 2, [])
   end
 
-  # TODO: Add a palindrome? function.
+  def palindrome(x) do
+    v = String.length(x)
+    if v < 2 do
+        true
+    else
+      s1 = String.slice(x, 0, div(v, 2))
+      s2 = String.slice(x, div(v+1, 2), div(v,2))
+      s2 = String.reverse(s2)
+      String.equivalent?(s1, s2)
+    end
+  end
 end
